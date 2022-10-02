@@ -4,6 +4,10 @@ from tabulate import tabulate
 class process:
     def __init__(self, value):
         self.value=value
+        self.ForwardPositions=-1
+
+    def Set_Value(self, value):
+        self.value=value
 
     def Set_Coin(self, coin):
         self.coin=coin
@@ -11,8 +15,14 @@ class process:
     def Set_Youth(self, youth):
         self.youth=youth
 
+    def set_ForwardPositions(self, ForwardPositions):
+        self.ForwardPositions=ForwardPositions
+
+    def get_ForwardPositions(self):
+        return self.ForwardPositions
+
     def get_Value(self):
-        print(self.value)
+        return self.value
 
 
 def displayMenu01():
@@ -111,7 +121,19 @@ if __name__ =="__main__":
             if isThereRoom:
                 singleFrame[pos]=process(intInput[0])
             elif swapOption == 1: #Optimal
-                
+                ForwardedList=[]
+                for process in singleFrame:
+                    value=process.get_Value()
+                    for number in intInput:
+                        if number==value:
+                            break
+                        process.set_ForwardPositions(get_ForwardPositions()+1)
+                    ForwardedLista.append(process.get_ForwardPositions())
+                if -1 in ForwardedList:
+                    singleFrame[index(-1)].Set_Value(intInput[0])
+                else:
+                    singleFrame[index(max(ForwardedList))].Set_Value(intInput[0])
+
             elif swapOption == 2: #FIFO
 
             elif swapOption == 3: #LRU
