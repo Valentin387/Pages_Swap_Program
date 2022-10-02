@@ -1,5 +1,6 @@
 
 from tabulate import tabulate
+import numpy as np
 
 class Process:
     def __init__(self, value):
@@ -187,9 +188,19 @@ if __name__ =="__main__":
             FramesTable.append(singleFrame)
             intInput.pop(0)
 
-        print(tabulate(intInputCopy01))
-        print(tabulate(FramesTable))
-        print(tabulate(faultList))
+        FramesTable_onlyValues = []
+        for singleFrame in FramesTable:
+            dataFrame = []
+            for process in singleFrame:
+                dataP=process.get_Value()
+                dataFrame.append(dataP)
+            FramesTable_onlyValues.append(dataFrame)
+
+        transposedMatrix = np.asarray(FramesTable_onlyValues).T.tolist()
+
+        print(intInputCopy01)
+        print(tabulate(transposedMatrix, tablefmt='fancy_grid'))
+        print(faultList)
 
         #program's end section
         keyToken=False
