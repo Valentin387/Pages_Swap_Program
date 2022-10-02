@@ -38,7 +38,6 @@ def displayMenu01():
 if __name__ =="__main__":
 
     #program's while
-    Entry=""
     halt=False
     while not halt:
         #input section
@@ -86,18 +85,21 @@ if __name__ =="__main__":
 
         #body section
 
+        #copy of intInput
+        intInputCopy01=intInput
+
         #I prepare fault list
         faultList=[]
         temp=0
         while (temp < ExecutionLength):
             faultList.append("pass")
             temp+=1
-        f=0
+        f=0 #initial position (the first singleFrame is coming)
 
         #I prepare the first frame
         AlreadyStarted=False
         FramesTable=[]
-        myCoin=0
+        myCoin=0 #n-side coin
 
         while len(intInput) > 0:
             singleFrame=[]
@@ -106,13 +108,21 @@ if __name__ =="__main__":
                 while temp < framesLength:
                     singleFrame.append("pass")
                     temp+=1
+                AlreadyStarted=True
             else:
                 singleFrame=FramesTable[-1]
 
-            if not intInput[0] in singleFrame: #if the process is not in frames
+            It_is_present=False
+            for element in singleFrame: #if the process is not in frames
+                if isinstance(element, process):
+                    if element.get_Value()==intInput[0]:
+                        It_is_present=True
+                        break
+            if not It_is_present:
                 print("fault report")
                 faultList[f]="F"
                 f+=1
+
 
             isThereRoom=False
             pos=0
@@ -124,9 +134,12 @@ if __name__ =="__main__":
 
             if isThereRoom:
                 singleFrame[pos]=process(intInput[0]) #here is where the process is born, when it enters to the frame
-                if swapOption == 3: #spoiler alert
+
+                 #spoiler alert
+                if swapOption == 3:
                     for process in singleFrame:
-                        process.set_Youth(process.get_Youth()+1)
+                        if isinstance(process, process):
+                            process.set_Youth(process.get_Youth()+1)
                     singleFrame[pos].set_Youth(0)
 
             elif swapOption == 1: #Optimal
@@ -174,7 +187,7 @@ if __name__ =="__main__":
             FramesTable.append(singleFrame)
             intInput.pop(0)
 
-        print(tabulate(intInput))
+        print(tabulate(intInputCopy01))
         print(tabulate(FramesTable))
         print(tabulate(faultList))
 
