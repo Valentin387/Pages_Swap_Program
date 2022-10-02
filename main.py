@@ -12,8 +12,11 @@ class process:
     def Set_Coin(self, coin):
         self.coin=coin
 
-    def Set_Youth(self, youth):
+    def set_Youth(self, youth):
         self.youth=youth
+
+    def get_Youth(self):
+        return self.youth
 
     def set_ForwardPositions(self, ForwardPositions):
         self.ForwardPositions=ForwardPositions
@@ -120,7 +123,12 @@ if __name__ =="__main__":
                 pos+=1
 
             if isThereRoom:
-                singleFrame[pos]=process(intInput[0])
+                singleFrame[pos]=process(intInput[0]) #here is where the process is born, when it enters to the frame
+                if swapOption == 3: #spoiler alert
+                    for process in singleFrame:
+                        process.set_Youth(process.get_Youth()+1)
+                    singleFrame[pos].set_Youth(0)
+
             elif swapOption == 1: #Optimal
                 ForwardedList=[]
                 for process in singleFrame:
@@ -141,8 +149,24 @@ if __name__ =="__main__":
                     myCoin=0
                 else:
                     myCoin+=1
-                    
+
             elif swapOption == 3: #LRU
+                pos=0
+                exists=False
+                for process in singleFrame:
+                    if process.get_Value()==intInput[0]:
+                        exists=True
+                        break
+                    pos+=1
+
+                for process in singleFrame:
+                    process.set_Youth(process.get_Youth()+1)
+
+                if exists:
+                    singleFrame[pos].set_Youth(0)
+                else:
+                    singleFrame[pos].set_Value(intInput[0])
+                    singleFrame[pos].set_Youth(0)
 
             else:
                 print("Action no specified")
