@@ -79,24 +79,48 @@ if __name__ =="__main__":
         while (temp < ExecutionLength):
             faultList.append("pass")
             temp+=1
+        f=0
 
-        #I prepare frame
+        #I prepare the first frame
         AlreadyStarted=False
+        FramesTable=[]
 
         while len(intInput) > 0:
-            f=0
             singleFrame=[]
             if not AlreadyStarted:
                 temp=0
                 while temp < framesLength:
                     singleFrame.append("pass")
+                    temp+=1
+            else:
+                singleFrame=FramesTable[-1]
 
-            if not intInput[0] in singleFrame:
+            if not intInput[0] in singleFrame: #if the process is not in frames
                 print("fault report")
                 faultList[f]="F"
-            f+=1
+                f+=1
 
+            isThereRoom=False
+            pos=0
+            for element in singleFrame:
+                if element=="pass":
+                    isThereRoom=True
+                    break
+                pos+=1
 
+            if isThereRoom:
+                singleFrame[pos]=intInput[0]
+            elif swapOption == 1: #Optimal
+
+            elif swapOption == 2: #FIFO
+
+            elif swapOption == 3: #LRU
+
+            else:
+                print("Action no specified")
+
+            FramesTable.append(singleFrame)
+            intInput.pop(0)
 
 
         #program's end section
