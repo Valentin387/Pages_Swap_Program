@@ -1,5 +1,5 @@
 
-
+from tabulate import tabulate
 
 class process:
     def __init__(self, value):
@@ -109,9 +109,9 @@ if __name__ =="__main__":
                 pos+=1
 
             if isThereRoom:
-                singleFrame[pos]=intInput[0]
+                singleFrame[pos]=process(intInput[0])
             elif swapOption == 1: #Optimal
-
+                
             elif swapOption == 2: #FIFO
 
             elif swapOption == 3: #LRU
@@ -122,6 +122,9 @@ if __name__ =="__main__":
             FramesTable.append(singleFrame)
             intInput.pop(0)
 
+        print(tabulate(intInput))
+        print(tabulate(FramesTable))
+        print(tabulate(faultList))
 
         #program's end section
         keyToken=False
