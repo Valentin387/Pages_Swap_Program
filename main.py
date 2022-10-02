@@ -1,7 +1,7 @@
 
 from tabulate import tabulate
 
-class process:
+class Process:
     def __init__(self, value):
         self.value=value
         self.ForwardPositions=-1
@@ -114,7 +114,7 @@ if __name__ =="__main__":
 
             It_is_present=False
             for element in singleFrame: #if the process is not in frames
-                if isinstance(element, process):
+                if isinstance(element, Process):
                     if element.get_Value()==intInput[0]:
                         It_is_present=True
                         break
@@ -133,12 +133,12 @@ if __name__ =="__main__":
                 pos+=1
 
             if isThereRoom:
-                singleFrame[pos]=process(intInput[0]) #here is where the process is born, when it enters to the frame
+                singleFrame[pos]=Process(intInput[0]) #here is where the process is born, when it enters to the frame
 
                  #spoiler alert
                 if swapOption == 3:
                     for process in singleFrame:
-                        if isinstance(process, process):
+                        if isinstance(process, Process):
                             process.set_Youth(process.get_Youth()+1)
                     singleFrame[pos].set_Youth(0)
 
@@ -149,12 +149,12 @@ if __name__ =="__main__":
                     for number in intInput:
                         if number==value:
                             break
-                        process.set_ForwardPositions(get_ForwardPositions()+1)
-                    ForwardedLista.append(process.get_ForwardPositions())
+                        process.set_ForwardPositions(process.get_ForwardPositions()+1)
+                    ForwardedList.append(process.get_ForwardPositions())
                 if -1 in ForwardedList:
-                    singleFrame[index(-1)].Set_Value(intInput[0])
+                    singleFrame[ForwardedList.index(-1)].Set_Value(intInput[0])
                 else:
-                    singleFrame[index(max(ForwardedList))].Set_Value(intInput[0])
+                    singleFrame[ForwardedList.index(max(ForwardedList))].Set_Value(intInput[0])
 
             elif swapOption == 2: #FIFO
                 singleFrame[myCoin].Set_Value(intInput[0])
