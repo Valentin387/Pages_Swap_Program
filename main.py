@@ -94,6 +94,7 @@ if __name__ =="__main__":
         #I prepare the first frame
         AlreadyStarted=False
         FramesTable=[]
+        myCoin=0
 
         while len(intInput) > 0:
             singleFrame=[]
@@ -135,7 +136,12 @@ if __name__ =="__main__":
                     singleFrame[index(max(ForwardedList))].Set_Value(intInput[0])
 
             elif swapOption == 2: #FIFO
-
+                singleFrame[myCoin].Set_Value(intInput[0])
+                if myCoin == framesLength:
+                    myCoin=0
+                else:
+                    myCoin+=1
+                    
             elif swapOption == 3: #LRU
 
             else:
