@@ -82,7 +82,7 @@ if __name__ =="__main__":
                     print("error, input out of range, check menu")
             except:
                 print("error, the input must be an integer")
-        print(swapOption)
+        #print(swapOption)
 
         #body section
 
@@ -109,7 +109,7 @@ if __name__ =="__main__":
             if not AlreadyStarted:
                 temp=0
                 while temp < framesLength:
-                    singleFrame.append("pass")
+                    singleFrame.append("pass") #frame structure
                     temp+=1
                 AlreadyStarted=True
             else:
@@ -122,7 +122,7 @@ if __name__ =="__main__":
                         It_is_present=True
                         break
             if not It_is_present:
-                print("fault report")
+                #print("fault report")
                 faultList[f]="F"
                 f+=1
 
@@ -134,6 +134,13 @@ if __name__ =="__main__":
                     isThereRoom=True
                     break
                 pos+=1
+            #print("pos: ", pos)
+            #
+            if isinstance(singleFrame[1], Process):
+                print(singleFrame[1].get_Value())
+            else:
+                print(singleFrame[1])
+            #
 
             if isThereRoom:
                 singleFrame[pos]=Process(intInput[0]) #here is where the process is born, when it enters to the frame
@@ -153,7 +160,9 @@ if __name__ =="__main__":
                         if number==value:
                             break
                         process.set_ForwardPositions(process.get_ForwardPositions()+1)
+                    #print(process.get_ForwardPositions())
                     ForwardedList.append(process.get_ForwardPositions())
+
                 if -1 in ForwardedList:
                     singleFrame[ForwardedList.index(-1)].Set_Value(intInput[0])
                 else:
@@ -187,9 +196,17 @@ if __name__ =="__main__":
             else:
                 print("Action no specified")
 
+            #
+            if isinstance(singleFrame[1], Process):
+                print(singleFrame[1].get_Value())
+            else:
+                print(singleFrame[1])
+            #
+
             FramesTable.append(singleFrame)
             intInput.pop(0)
 
+        #Formatting table of frames
         FramesTable_onlyValues = []
         for singleFrame in FramesTable:
             dataFrame = []
@@ -203,7 +220,9 @@ if __name__ =="__main__":
         for e in intInputCopy01:
             print("  ", e, end="")
         print("")
+
         print(tabulate(transposedMatrix, tablefmt='fancy_grid'))
+
         for e in faultList:
             print("  ", e, end="")
         print("\n\n")
