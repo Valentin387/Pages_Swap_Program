@@ -54,7 +54,6 @@ if __name__ =="__main__":
                 halt=True
         if halt:
             break
-        print(intInput)
 
         keyToken2=False
         framesLength=0
@@ -66,7 +65,6 @@ if __name__ =="__main__":
             except:
                 print("error, the input must be an integer")
 
-        print(framesLength)
         ExecutionLength=len(intInput)
 
         keyToken3=False
@@ -124,7 +122,7 @@ if __name__ =="__main__":
                         break
             if not It_is_present:
                 faultList[f]="F"
-                f+=1
+            f+=1
 
 
             isThereRoom=False
@@ -135,7 +133,7 @@ if __name__ =="__main__":
                     break
                 pos+=1
 
-            if isThereRoom:
+            if isThereRoom and not It_is_present:
                 singleFrame[pos]=Process(intInput[0]) #here is where the process is born, when it enters to the frame
 
                  #spoiler alert
@@ -145,20 +143,20 @@ if __name__ =="__main__":
                             process.set_Youth(process.get_Youth()+1)
                     singleFrame[pos].set_Youth(0)
 
-            elif swapOption == 1: #Optimal
+            elif swapOption == 1 and not It_is_present: #Optimal
                 ForwardedList=[]
                 for process in singleFrame:
                     value=process.get_Value()
                     for number in intInput:
+                        process.set_ForwardPositions(process.get_ForwardPositions()+1)
                         if number==value:
                             break
-                        process.set_ForwardPositions(process.get_ForwardPositions()+1)
                     ForwardedList.append(process.get_ForwardPositions())
-
-                if -1 in ForwardedList:
-                    singleFrame[ForwardedList.index(-1)].Set_Value(intInput[0])
-                else:
-                    singleFrame[ForwardedList.index(max(ForwardedList))].Set_Value(intInput[0])
+                    print(ForwardedList)
+                #if -1 in ForwardedList:
+                    #singleFrame[ForwardedList.index(-1)]=Process(intInput[0])
+                #else:
+                singleFrame[ForwardedList.index(max(ForwardedList))]=Process(intInput[0])
 
             elif swapOption == 2: #FIFO
                 singleFrame[myCoin].Set_Value(intInput[0])
@@ -189,6 +187,7 @@ if __name__ =="__main__":
                 print("Action no specified")
 
             FramesTable.append(singleFrame)
+            #print(FramesTable[-1][pos].get_Value())
             intInput.pop(0)
 
         #Formatting table of frames THE PROBLEM IS HERE BRO!
