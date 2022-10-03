@@ -153,9 +153,8 @@ if __name__ =="__main__":
                             break
                     ForwardedList.append(process.get_ForwardPositions())
                     print(ForwardedList)
-                #if -1 in ForwardedList:
-                    #singleFrame[ForwardedList.index(-1)]=Process(intInput[0])
-                #else:
+                for process in singleFrame:
+                    process.set_ForwardPositions(-1)
                 singleFrame[ForwardedList.index(max(ForwardedList))]=Process(intInput[0])
 
             elif swapOption == 2: #FIFO
@@ -187,7 +186,6 @@ if __name__ =="__main__":
                 print("Action no specified")
 
             FramesTable.append(singleFrame)
-            #print(FramesTable[-1][pos].get_Value())
             intInput.pop(0)
 
         #Formatting table of frames THE PROBLEM IS HERE BRO!
