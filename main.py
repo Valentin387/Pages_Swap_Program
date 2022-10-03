@@ -87,13 +87,15 @@ if __name__ =="__main__":
         #body section
 
         #copy of intInput
-        intInputCopy01=intInput
+        intInputCopy01=[]
+        for e in intInput:
+            intInputCopy01.append(e)
 
         #I prepare fault list
         faultList=[]
         temp=0
         while (temp < ExecutionLength):
-            faultList.append("pass")
+            faultList.append("/")
             temp+=1
         f=0 #initial position (the first singleFrame is coming)
 
@@ -198,9 +200,13 @@ if __name__ =="__main__":
 
         transposedMatrix = np.asarray(FramesTable_onlyValues).T.tolist()
 
-        print(intInputCopy01)
+        for e in intInputCopy01:
+            print("  ", e, end="")
+        print("")
         print(tabulate(transposedMatrix, tablefmt='fancy_grid'))
-        print(faultList)
+        for e in faultList:
+            print("  ", e, end="")
+        print("\n\n")
 
         #program's end section
         keyToken=False
