@@ -76,13 +76,13 @@ if __name__ =="__main__":
             try:
                 displayMenu01()
                 swapOption=int(input("Enter your choice: "))
+                print("\n\n")
                 if swapOption in domain01:
                     keyToken3=True
                 else:
                     print("error, input out of range, check menu")
             except:
                 print("error, the input must be an integer")
-        #print(swapOption)
 
         #body section
 
@@ -109,11 +109,12 @@ if __name__ =="__main__":
             if not AlreadyStarted:
                 temp=0
                 while temp < framesLength:
-                    singleFrame.append("pass") #frame structure
+                    singleFrame.append("P") #frame structure #pass
                     temp+=1
                 AlreadyStarted=True
             else:
-                singleFrame=FramesTable[-1]
+                for i in FramesTable[-1]:
+                    singleFrame.append(i)
 
             It_is_present=False
             for element in singleFrame: #if the process is not in frames
@@ -122,7 +123,6 @@ if __name__ =="__main__":
                         It_is_present=True
                         break
             if not It_is_present:
-                #print("fault report")
                 faultList[f]="F"
                 f+=1
 
@@ -130,17 +130,10 @@ if __name__ =="__main__":
             isThereRoom=False
             pos=0
             for element in singleFrame:
-                if element=="pass":
+                if element=='P':
                     isThereRoom=True
                     break
                 pos+=1
-            #print("pos: ", pos)
-            #
-            if isinstance(singleFrame[1], Process):
-                print(singleFrame[1].get_Value())
-            else:
-                print(singleFrame[1])
-            #
 
             if isThereRoom:
                 singleFrame[pos]=Process(intInput[0]) #here is where the process is born, when it enters to the frame
@@ -160,7 +153,6 @@ if __name__ =="__main__":
                         if number==value:
                             break
                         process.set_ForwardPositions(process.get_ForwardPositions()+1)
-                    #print(process.get_ForwardPositions())
                     ForwardedList.append(process.get_ForwardPositions())
 
                 if -1 in ForwardedList:
@@ -196,23 +188,19 @@ if __name__ =="__main__":
             else:
                 print("Action no specified")
 
-            #
-            if isinstance(singleFrame[1], Process):
-                print(singleFrame[1].get_Value())
-            else:
-                print(singleFrame[1])
-            #
-
             FramesTable.append(singleFrame)
             intInput.pop(0)
 
-        #Formatting table of frames
+        #Formatting table of frames THE PROBLEM IS HERE BRO!
         FramesTable_onlyValues = []
         for singleFrame in FramesTable:
             dataFrame = []
-            for process in singleFrame:
-                dataP=process.get_Value()
-                dataFrame.append(dataP)
+            for element in singleFrame:
+                if isinstance(element, Process):
+                    dataP=element.get_Value()
+                    dataFrame.append(dataP)
+                else:
+                    dataFrame.append(element)
             FramesTable_onlyValues.append(dataFrame)
 
         transposedMatrix = np.asarray(FramesTable_onlyValues).T.tolist()
