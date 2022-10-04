@@ -160,14 +160,14 @@ if __name__ =="__main__":
 
                 singleFrame[ForwardedList.index(max(ForwardedList))]=Process(intInput[0])
 
-            elif swapOption == 2: #FIFO
-                singleFrame[myCoin].Set_Value(intInput[0])
-                if myCoin == framesLength:
+            elif swapOption == 2 and not It_is_present: #FIFO
+                singleFrame[myCoin]=Process(intInput[0])
+                if myCoin == framesLength-1:
                     myCoin=0
                 else:
                     myCoin+=1
 
-            elif swapOption == 3: #LRU
+            elif swapOption == 3 and not It_is_present: #LRU
                 pos=0
                 exists=False
                 for process in singleFrame:
