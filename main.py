@@ -145,16 +145,19 @@ if __name__ =="__main__":
 
             elif swapOption == 1 and not It_is_present: #Optimal
                 ForwardedList=[]
+                found=False
                 for process in singleFrame:
                     value=process.get_Value()
                     for number in intInput:
-                        process.set_ForwardPositions(process.get_ForwardPositions()+1)
                         if number==value:
                             break
+                        process.set_ForwardPositions(process.get_ForwardPositions()+1)
+                    if not found: #I punish that process
+                        process.set_ForwardPositions(process.get_ForwardPositions()+1)
                     ForwardedList.append(process.get_ForwardPositions())
-                    print(ForwardedList)
                 for process in singleFrame:
                     process.set_ForwardPositions(-1)
+
                 singleFrame[ForwardedList.index(max(ForwardedList))]=Process(intInput[0])
 
             elif swapOption == 2: #FIFO
@@ -183,7 +186,7 @@ if __name__ =="__main__":
                     singleFrame[pos].set_Youth(0)
 
             else:
-                print("Action no specified")
+                print("", end="") #Action no specified
 
             FramesTable.append(singleFrame)
             intInput.pop(0)
@@ -211,6 +214,15 @@ if __name__ =="__main__":
         for e in faultList:
             print("  ", e, end="")
         print("\n\n")
+
+        #I check how many faults there are:
+        totalFaults=0
+        for e in faultList:
+            if e == 'F':
+                totalFaults+=1
+
+
+        print("Quantity of Faults: ", totalFaults)
 
         #program's end section
         keyToken=False
