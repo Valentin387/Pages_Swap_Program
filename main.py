@@ -43,7 +43,9 @@ if __name__ =="__main__":
     halt=False
     while not halt:
         #input section
-        rawInput=input("please write a string of integers separated by commas: ")
+        print("---------------------------------------------------------------------")
+        print("\n\n\t\t WELCOME, HERE YOU CAN RUN ALL 3 PAGES-SWAP-ALGORITHMS \n\n")
+        rawInput=input("Please write a string of integers separated by commas: ")
         splitedInput=rawInput.split(',')
         intInput = []
         for element in splitedInput:
@@ -177,8 +179,6 @@ if __name__ =="__main__":
                 ageList=[]
                 for process in singleFrame: #I look for the oldest one to replace it
                     ageList.append(process.get_Youth())
-                    print(ageList)
-
                 singleFrame[ageList.index(max(ageList))]=Process(intInput[0])
 
             else:
@@ -186,8 +186,6 @@ if __name__ =="__main__":
                 #But, for LRU, we need to rejuvenate it
                 #for process in singleFrame: #I increased the ages
                     #process.set_Youth(process.get_Youth()+1)
-
-                print("else: ", intInput[0])
                 if swapOption == 3:
                     for process in singleFrame: #I increased the ages
                         if isinstance(process, Process):
@@ -216,6 +214,13 @@ if __name__ =="__main__":
 
         transposedMatrix = np.asarray(FramesTable_onlyValues).T.tolist()
 
+        if swapOption == 1:
+            print("\n\n\t\t OPTIMAL ALGORITHM \n\n")
+        elif swapOption == 2:
+            print("\n\n\t\t FIFO ALGORITHM \n\n")
+        else:
+            print("\n\n\t\t LRU ALGORITHM \n\n")
+
         for e in intInputCopy01:
             print("  ", e, end="")
         print("")
@@ -233,19 +238,22 @@ if __name__ =="__main__":
                 totalFaults+=1
 
 
-        print("Quantity of Faults: ", totalFaults)
+        print("Quantity of Faults: ", totalFaults, "\n\n")
+        print("---------------------------------------------------------------------")
 
         #program's end section
         keyToken=False
         option=""
         while not keyToken:
-            option=input("Another ride? (y:yes / n:no): ")
-            if option == 'n':
+            option=input("Do you want to run this program again? (y:yes / n:no): ")
+            optionL=option.lower()
+            if optionL == 'n':
                 keyToken=True
                 halt=True
-            elif option == 'y':
+            elif optionL == 'y':
                 keyToken=True
             else:
                 print("no valid input")
 
-    print("\n\n END OF LINE \n\n")
+    print("\n\n I HOPE THIS PROGRAM HAS BEEN HELPFUL FOR YOU. \n\n")
+    print("\n END OF LINE \n\n")
