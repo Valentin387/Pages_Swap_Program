@@ -6,6 +6,7 @@ class Process:
     def __init__(self, value):
         self.value=value
         self.ForwardPositions=-1
+        self.youth=0
 
     def Set_Value(self, value):
         self.value=value
@@ -134,14 +135,16 @@ if __name__ =="__main__":
                 pos+=1
 
             if isThereRoom and not It_is_present:
-                singleFrame[pos]=Process(intInput[0]) #here is where the process is born, when it enters to the frame
 
                  #spoiler alert
                 if swapOption == 3:
                     for process in singleFrame:
                         if isinstance(process, Process):
+                            #I increase the ages
                             process.set_Youth(process.get_Youth()+1)
-                    singleFrame[pos].set_Youth(0)
+
+                #here is where the process is born, when it enters to the frame
+                singleFrame[pos]=Process(intInput[0])
 
             elif swapOption == 1 and not It_is_present: #Optimal
                 ForwardedList=[]
@@ -168,25 +171,33 @@ if __name__ =="__main__":
                     myCoin+=1
 
             elif swapOption == 3 and not It_is_present: #LRU
-                pos=0
-                exists=False
-                for process in singleFrame:
-                    if process.get_Value()==intInput[0]:
-                        exists=True
-                        break
-                    pos+=1
-
-                for process in singleFrame:
+                for process in singleFrame: #I increased the ages
                     process.set_Youth(process.get_Youth()+1)
 
-                if exists:
-                    singleFrame[pos].set_Youth(0)
-                else:
-                    singleFrame[pos].set_Value(intInput[0])
-                    singleFrame[pos].set_Youth(0)
+                ageList=[]
+                for process in singleFrame: #I look for the oldest one to replace it
+                    ageList.append(process.get_Youth())
+                    print(ageList)
+
+                singleFrame[ageList.index(max(ageList))]=Process(intInput[0])
 
             else:
-                print("", end="") #Action no specified
+                #Action no specified (when a process is already in the singleFrame)
+                #But, for LRU, we need to rejuvenate it
+                #for process in singleFrame: #I increased the ages
+                    #process.set_Youth(process.get_Youth()+1)
+
+                print("else: ", intInput[0])
+                if swapOption == 3:
+                    for process in singleFrame: #I increased the ages
+                        if isinstance(process, Process):
+                            process.set_Youth(process.get_Youth()+1)
+
+                    for process in singleFrame:
+                        if isinstance(process, Process):
+                            if process.get_Value()==intInput[0]:
+                                process.set_Youth(0)
+                print("", end="")
 
             FramesTable.append(singleFrame)
             intInput.pop(0)
